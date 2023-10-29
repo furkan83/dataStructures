@@ -1,3 +1,5 @@
+//initialization 
+
 // Öğrenci adına göre kayıt arayan fonksiyon
 struct node *kayit_ara(struct node *head, char *isim) {
   // Liste boşsa döngüden çık
