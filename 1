@@ -1,0 +1,66 @@
+// Tek bağlı doğrusal liste
+struct node {
+  int data;
+  struct node *next;
+};
+
+// Tek bağlı doğrusal listeye eleman ekleme fonksiyonu
+void ekle(struct node **head, int data) {
+  // Yeni bir düğüm oluştur
+  struct node *new_node = malloc(sizeof(struct node));
+  new_node->data = data;
+  new_node->next = NULL;
+
+  // Yeni düğümü listenin başına ekle
+  if (*head == NULL) {
+    *head = new_node;
+  } else {
+    new_node->next = *head;
+    *head = new_node;
+  }
+}
+
+// Klavyeden -1 girilinceye kadar girilen tüm tek sayıları listenin başına, çift sayıları ise listenin sonuna ekleyen fonksiyon
+void tek_cift_ekle(struct node **head) {
+  int data;
+  while (1) {
+    // Bir sayı gir
+    printf("Bir sayı giriniz: ");
+    scanf("%d", &data);
+
+    // -1 girilirse döngüden çık
+    if (data == -1) {
+      break;
+    }
+
+    // Sayı tek ise listenin başına ekle
+    if (data % 2 == 1) {
+      ekle(head, data);
+    } else {
+      // Sayı çift ise listenin sonuna ekle
+      struct node *temp = *head;
+      while (temp->next != NULL) {
+        temp = temp->next;
+      }
+      ekle(&temp->next, data);
+    }
+  }
+}
+
+// Main fonksiyonu
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Klavyeden -1 girilinceye kadar tek ve çift sayıları listelere ekle
+  tek_cift_ekle(&head);
+
+  // Listeyi yazdır
+  struct node *temp = head;
+  while (temp != NULL) {
+    printf("%d ", temp->data);
+    temp = temp->next;
+  }
+
+  return 0;
+}
