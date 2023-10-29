@@ -1,0 +1,45 @@
+// Öğrenci adına göre kayıt arayan fonksiyon
+struct node *kayit_ara(struct node *head, char *isim) {
+  // Liste boşsa döngüden çık
+  if (head == NULL) {
+    return NULL;
+  }
+
+  // Listedeki tüm düğümleri dolaş
+  struct node *temp = head;
+  while (temp != NULL) {
+    // İsim eşleşiyorsa düğümü döndür
+    if (strcmp(temp->isim, isim) == 0) {
+      return temp;
+    }
+
+    // Bir sonraki düğüme geç
+    temp = temp->next;
+  }
+
+  // Kayıt bulunamadı
+  return NULL;
+}
+
+// Main fonksiyonu
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Öğrenci bilgilerini listeye ekle
+  ekle(&head, 201, "Saliha", 27);
+  ekle(&head, 203, "ece", 19);
+  ekle(&head, 221, "furkan", 19);
+
+  // Öğrenci adına göre kayıt ara
+  struct node *kayit = kayit_ara(head, "furkan");
+
+  // Kayıt varsa bilgilerini ekrana yaz
+  if (kayit != NULL) {
+    printf("Öğrenci numarası: %d\n", kayit->ogrenci_no);
+    printf("Öğrenci adı: %s\n", kayit->isim);
+    printf("Öğrenci yaşı: %d\n", kayit->yas);
+  }
+
+  return 0;
+}
