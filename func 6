@@ -1,0 +1,53 @@
+
+// Tek bağlı doğrusal liste
+struct node {
+  int ogrenci_no;
+  char *isim;
+  int yas;
+  struct node *next;
+};
+
+// Listedeki tüm düğümleri dolaşan, isimlerin uzunluklarını karşılaştıran ve en uzun ismin olduğu kaydı döndüren fonksiyon
+struct node *en_uzun_isim(struct node *head) {
+  // Liste boşsa döngüden çık
+  if (head == NULL) {
+    return NULL;
+  }
+
+  // Listedeki tüm düğümleri dolaş
+  struct node *temp = head;
+  struct node *en_uzun = temp;
+  int uzunluk = strlen(temp->isim);
+
+  while (temp != NULL) {
+    // Mevcut düğümün ismi daha uzunsa en uzun isim düğümünü güncelle
+    if (strlen(temp->isim) > uzunluk) {
+      en_uzun = temp;
+      uzunluk = strlen(temp->isim);
+    }
+
+    // Bir sonraki düğüme geç
+    temp = temp->next;
+  }
+
+  return en_uzun;
+}
+
+// Main fonksiyonu
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Öğrenci bilgilerini listeye ekle
+  ekle(&head, 201, "Saliha", 27);
+  ekle(&head, 203, "ece", 19);
+  ekle(&head, 221, "furkan", 19);
+  ekle(&head, 222, "Abdurrahman gazi", 27);
+
+  // En uzun ismin olduğu kaydı yazdır
+  struct node *en_uzun_isim_dugumu = en_uzun_isim(head);
+  if (en_uzun_isim_dugumu != NULL) {
+    printf("Listede en uzun isim: %s\nUzunluk: %d\n", en_uzun_isim_dugumu->isim, strlen(en_uzun_isim_dugumu->isim));
+  }
+
+  return 0;
