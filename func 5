@@ -1,0 +1,13 @@
+// Öğrenci adına göre bir sonraki düğümü silen fonksiyon
+void sil(struct node *head, char *isim) {
+  // Kayıt bulunamazsa dön
+  struct node *kayit = kayit_ara(head, isim);
+  if (kayit == NULL) {
+    return;
+  }
+
+  // Bir sonraki düğümü sil
+  struct node *silme_dugumu = kayit->next;
+  kayit->next = silme_dugumu->next;
+  free(silme_dugumu);
+}
