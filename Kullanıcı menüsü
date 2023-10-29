@@ -1,0 +1,49 @@
+// Kullanıcı menüsü
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Kullanıcı menüsünü başlat
+  while (1) {
+    // Kullanıcıdan bir işlem seçmesini iste
+    printf("**Tek Bağlı Doğrusal Liste Uygulaması**\n\n");
+    printf("1. Öğrenci Bilgileri Ekleme\n");
+    printf("2. Öğrenci Bilgileri Arama\n");
+    printf("3. Öğrenci Bilgileri Silme\n");
+    printf("4. En Uzun İsimli Kayıt Bulma\n");
+    printf("5. Rastgele Sayılar Ekleme ve Sıralama\n");
+    printf("6. Çıkış\n\n");
+    printf("İşlem Nunarasını Seçiniz: ");
+
+    // Kullanıcının seçimini al
+    int secim;
+    scanf("%d", &secim);
+
+    // Kullanıcının seçimine göre işlem yap
+    switch (secim) {
+      case 1:
+        ogrenci_ekle(&head);
+        break;
+      case 2:
+        ogrenci_ara(head);
+        break;
+      case 3:
+        ogrenci_sil(head);
+        break;
+      case 4:
+        en_uzun_isim(head);
+        break;
+      case 5:
+        rastgele_sayilar_ekle_ve_sirala(&head);
+        break;
+      case 6:
+        return 0;
+        break;
+      default:
+        printf("Geçersiz seçim! Lütfen 1 ile 6 arasında bir seçim yapın.\n");
+        break;
+    }
+  }
+
+  return 0;
+}
