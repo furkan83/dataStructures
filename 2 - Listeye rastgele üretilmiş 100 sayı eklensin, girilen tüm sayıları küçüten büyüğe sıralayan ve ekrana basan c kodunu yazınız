@@ -1,0 +1,81 @@
+// Tek bağlı doğrusal liste
+struct node {
+  int data;
+  struct node *next;
+};
+
+// Rastgele sayı üretme fonksiyonu
+int rastgele_sayi_uret(int alt_sinir, int ust_sinir) {
+  return rand() % (ust_sinir - alt_sinir + 1) + alt_sinir;
+}
+
+// Tek bağlı doğrusal listeye eleman ekleme fonksiyonu
+void ekle(struct node **head, int data) {
+  // Yeni bir düğüm oluştur
+  struct node *new_node = malloc(sizeof(struct node));
+  new_node->data = data;
+  new_node->next = NULL;
+
+  // Yeni düğümü listenin başına ekle
+  if (*head == NULL) {
+    *head = new_node;
+  } else {
+    new_node->next = *head;
+    *head = new_node;
+  }
+}
+
+// Listedeki tüm sayıları küçükten büyüğe sıralayan fonksiyon
+void sira(struct node *head) {
+  // Liste boşsa döngüden çık
+  if (head == NULL) {
+    return;
+  }
+
+  // Listedeki tüm düğümleri dolaş
+  struct node *temp = head;
+  struct node *temp2;
+
+  while (temp != NULL) {
+    // Listedeki en küçük düğümü bul
+    temp2 = temp;
+    while (temp2->next != NULL) {
+      if (temp2->data > temp2->next->data) {
+        temp2 = temp2->next;
+      }
+    }
+
+    // En küçük düğümü listenin başına taşı
+    int temp_data = temp->data;
+    temp->data = temp2->data;
+    temp2->data = temp_data;
+
+    // Bir sonraki düğüme geç
+    temp = temp->next;
+  }
+}
+
+// Main fonksiyonu
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Rastgele 100 sayı üret ve listeye ekle
+  for (int i = 0; i < 100; i++) {
+    int data = rastgele_sayi_uret(1, 1000);
+    ekle(&head, data);
+  }
+
+  // Listeyi küçükten büyüğe sırala
+  sira(head);
+
+  // Listeyi yazdır
+  struct node *temp = head;
+  while (temp != NULL) {
+    printf("%d->", temp->data);
+    temp = temp->next;
+  }
+  printf("\n");
+
+  return 0;
+}
