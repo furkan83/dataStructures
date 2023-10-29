@@ -1,0 +1,69 @@
+// Tek bağlı doğrusal liste
+struct node {
+  int ogrenci_no;
+  char *isim;
+  int yas;
+  struct node *next;
+};
+
+// Tek bağlı doğrusal listeye eleman ekleme fonksiyonu
+void ekle(struct node **head, int ogrenci_no, char *isim, int yas) {
+  // Yeni bir düğüm oluştur
+  struct node *new_node = malloc(sizeof(struct node));
+  new_node->ogrenci_no = ogrenci_no;
+  new_node->isim = isim;
+  new_node->yas = yas;
+  new_node->next = NULL;
+
+  // Yeni düğümü listenin başına ekle
+  if (*head == NULL) {
+    *head = new_node;
+  } else {
+    new_node->next = *head;
+    *head = new_node;
+  }
+}
+
+// Listedeki tüm düğümleri dolaşan, öğrenci bilgilerini ekrana yazan ve sayan fonksiyon
+int tum_ogrencileri_yaz(struct node *head) {
+  int sayac = 0;
+
+  // Liste boşsa döngüden çık
+  if (head == NULL) {
+    return 0;
+  }
+
+  // Listedeki tüm düğümleri dolaş
+  struct node *temp = head;
+  while (temp != NULL) {
+    // Öğrenci bilgilerini ekrana yaz
+    printf("%s %d %d\n", temp->isim, temp->yas, temp->ogrenci_no);
+
+    // Sayacı arttır
+    sayac++;
+
+    // Bir sonraki düğüme geç
+    temp = temp->next;
+  }
+
+  return sayac;
+}
+
+// Main fonksiyonu
+int main() {
+  // Boş bir liste oluştur
+  struct node *head = NULL;
+
+  // Öğrenci bilgilerini listeye ekle
+  ekle(&head, 201, "Saliha", 27);
+  ekle(&head, 203, "ece", 19);
+  ekle(&head, 221, "furkan", 19);
+
+  // Listedeki tüm düğümleri dolaş ve öğrenci bilgilerini ekrana yaz
+  int sayac = tum_ogrencileri_yaz(head);
+
+  // Öğrenci sayısını ekrana yaz
+  printf("Öğrenci sayısı: %d\n", sayac);
+
+  return 0;
+}
